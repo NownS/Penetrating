@@ -4,7 +4,7 @@ import re
 crawl = []
 re1 = re.compile('<span.*span>')
 for i in range(1,26):
-    url = request.urlopen("http://ec2-54-180-137-70.ap-northeast-2.compute.amazonaws.com:8090/review/main/?pageNum="+str(i))
+    url = request.urlopen("*/review/main/?pageNum="+str(i))
     urllist = list(url)
     for i in urllist:
         i = i.decode("utf-8")
