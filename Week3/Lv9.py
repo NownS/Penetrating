@@ -3,7 +3,7 @@ import re
 from urllib import parse
 import time
 
-lvurl = "*/q/lv7.php?"
+lvurl = "*/q/lv9.php?"
 cookie = "PHPSESSID=*"
 
 length = 0
